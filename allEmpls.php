@@ -16,9 +16,12 @@ if(!isset($_SESSION['username']))
  	<title>Show All Employee</title>
  </head>
  <body>
+    <a href="déconnexion.php"><img style="margin-top: 10px" width="40" height="40" src="logout.png"></a> 
  	<center>
  		<h1>Show All Employe</h1>
  	 </center>
+
+
 
  	 <center>
  	 	
