@@ -1,5 +1,23 @@
-
 <?php 
+
+$servername="localhost";
+$username = "root";
+$password = "";
+$dabase_name = "grh";
+
+$conn = mysqli_connect($servername,$username,$password,$dabase_name);
+
+if(!$conn){
+    die("Connection problem " .mysqli_connect_error());
+}
+
+$query = "SELECT * FROM employes Where code=".$_POST['sub'];
+
+$result= mysqli_query($conn,$query);
+
+$row = mysqli_fetch_array($result);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,14 +32,13 @@
 
     <table border="0">
 
-        <form action="valAddEmpl.php" method="POST">
+        <form action="updateEmpl.php" method="POST">
             <tr>
                 <td>
                     <label for="name"> name :</label>
                 </td>
                 <td>
-                    <input type="text" name="nom">
-
+                    <input type="text" name="nom" value="<?php echo $row['nom']; ?> ">
                 </td>
 
             </tr>
@@ -31,7 +48,7 @@
                     <label for="prenom"> prenom :</label>
                 </td>
                 <td>
-                    <input type="text" name="prenom">
+                    <input type="text" name="prenom" value="<?php echo $row['prenom']; ?>">
 
                 </td>
             </tr>
@@ -42,8 +59,8 @@
                 </td>
                 <td>
                     <select name="gender">
-                        <option value="F" name="gender">Female</option>
-                        <option value="M" name="gender">Male</option>
+                        <option value="F" name="gender" <?php if($row['sexe']=="F"){ echo "selected"; } ?>>Female</option>
+                        <option value="M" name="gender" <?php if($row['sexe']=="M"){ echo "selected"; } ?>>Male</option>
                     </select>
 
                 </td>
@@ -54,7 +71,7 @@
                     <label for="adresse">adresse : </label>
                 </td>
                 <td>
-                    <input type="textarea" name="adresse">
+                    <input type="textarea" name="adresse" value="<?php echo $row['adresse']; ?>">
                 </td>
 
             </tr>
@@ -65,7 +82,7 @@
                 </td>
 
                 <td>
-                    <input type="date" name="date">
+                    <input type="date" name="date" value="<?php echo $row['dateNaissance'] ?>">
                 </td>
             </tr> 
 
@@ -74,7 +91,7 @@
                     <label for="num_service">Numero de service</label>
                 </td>
                 <td>
-                    <input type="number" name="service">
+                    <input type="number" name="service" value="<?php echo $row['numServ'] ?>">
                 </td>
             </tr>
 
@@ -84,8 +101,8 @@
     </table>
     <br>
 
-    <input type="submit" name="submit">
-    <input type="reset" name="cancel">
+    <input type="submit" name="update">
+    <input type="hidden" name="user_id" value="<?php echo $_POST['sub'] ?> ">
 
     </form>
 
